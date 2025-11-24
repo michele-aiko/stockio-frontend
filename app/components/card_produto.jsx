@@ -1,6 +1,6 @@
 function CardProduto() {
   return (
-    <div className="w-[229px] h-[310px] bg-white rounded-[35px] flex flex-col overflow-hidden shrink-0 relative">
+    <div className="w-[229px] h-[310px] bg-white rounded-[35px] flex flex-col overflow-hidden shrink-0 relative cursor-pointer hover:opacity-90 transition">
         <div className="w-full h-[180px] shrink-0"></div>
         <div className="w-full h-[68px] flex-1"></div>
 

@@ -91,7 +91,7 @@ export default function PaginaDePerfil() {
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between lg:items-end mt-12">
-          <h1 className="text-3xl font-medium mt-12">Produtos</h1>
+          <h1 className="text-3xl font-500 mt-12">Produtos</h1>
           <div type="text" className="text-violet-600 text-lg w-full lg:w-auto h-[43px] font-thin text-left lg:text-right cursor-pointer hover:opacity-90 transition">ver mais</div>
         </div>
 
