@@ -30,7 +30,7 @@ export default function PaginaDePerfil() {
       })
       .catch(error => {
         alert("Usuário não encontrado!");
-        router.push('/');
+        router.push('/feed');
       });
   }, [usernameProfile, router]);
 
