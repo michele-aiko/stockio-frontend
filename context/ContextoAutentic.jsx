@@ -3,8 +3,8 @@ import { useState, createContext } from "react";
 
 export const ContextoAutentic = createContext();
 export function ProvedorAutentic({ children }) {
-    const [usuarioLogado, setUsuarioLogado] = useState({username: 'ana', logado: true});
-    //const [usuarioLogado, setUsuarioLogado] = useState(null);
+    //const [usuarioLogado, setUsuarioLogado] = useState({username: 'ana', logado: true});
+    const [usuarioLogado, setUsuarioLogado] = useState(null);
 
     // função de login que será chamada pelo back-end
     const login = (dadosDoUsuario) => {

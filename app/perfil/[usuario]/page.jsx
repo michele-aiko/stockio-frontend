@@ -1,16 +1,42 @@
 "use client"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalEditarPerfil from "../../components/modal_editar_perfil";
 import BotaoPerfil from "../../components/mostrar_botao_edit_perfil";
 import CardProduto from "../../components/card_produto";
 import NavbarsPerfil from "../../components/mostrar_icone_user";
 import ModalAlterarSenha from "../../components/modal_alterar_senha";
+import api from '../../services/api';
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export default function PaginaDePerfil() {
+  const params = useParams();
+  const router = useRouter();
+  const usernameProfile = params.usuario;
+  const [usuario, setUsuario] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
   const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+
+  useEffect(() => {
+    if (!usernameProfile) return;
+
+    api.get(`/usuarios/u/${usernameProfile}`)
+      .then(response => {
+        setUsuario(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        alert("Usuário não encontrado!");
+        router.push('/');
+      });
+  }, [usernameProfile, router]);
+
+  if (loading) return <p className="p-10">...</p>;
+  if (!usuario) return null;
+
 
   return (
     <main className="min-h-screen bg-yellow-50 flex flex-col">
