@@ -2,14 +2,15 @@
 //Usado para o unuário escolher como a senha será mostrada
 import Image from 'next/image';
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PasswordField from "@/components/PasswordField";
 import { useRouter } from 'next/navigation';
 import api from '../../services/api';
-import Cookies from 'js-cookie';
+import { ContextoAutentic } from "../../context/ContextoAutentic";
 
 export default function Login() {
   const router = useRouter();
+  const { login } = useContext(ContextoAutentic);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -20,7 +21,8 @@ export default function Login() {
       
       const { access_token } = response.data;
 
-      Cookies.set('token', access_token, { expires: 1 });
+      login(access_token);
+
       const decoded = jwtDecode(access_token);
       const username = decoded.username;
 
@@ -45,6 +47,7 @@ export default function Login() {
 
         <div className="pl-50">
           <Image 
+            className="w-full h-screen"
             width={350}
             height={350}
             src={"/images/stockles.png"}

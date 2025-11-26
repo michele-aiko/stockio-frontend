@@ -10,15 +10,11 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.16",
-<<<<<<< HEAD
     "@tailwindcss/vite": "^4.1.16",
     "axios": "^1.13.2",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.554.0",
-=======
-    "lucide-react": "^0.553.0",
->>>>>>> origin/feat-feed
     "next": "16.0.0",
     "postcss": "^8.5.6",
     "react": "19.2.0",

@@ -1,20 +1,55 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import api from '@/services/api';
+import { useState, useContext } from "react";
+import { ContextoAutentic } from "@/context/ContextoAutentic";
+import PasswordField from "@/components/PasswordField";
 
 export default function ModalAlterarSenha ({ Aberto, Fechado, AbrirModalEditarPerfil, SalvarSenha }) {
+    const { usuarioLogado } = useContext(ContextoAutentic);
+    const [loading, setLoading] = useState(false);
 
-    const [senhaAntiga, setSenhaAntiga] = useState("");
-    const [senhaNova, setSenhaNova] = useState("");
-    const [confirmarSenha, setConfirmarSenha] = useState("");
+    const estiloCaixa = "w-full border rounded-full bg-gray-100 border-transparent focus-within:border-violet-500 transition px-4";
+    const estiloInput = "py-3 text-gray-700 placeholder-gray-500";
+    const estiloIcone = "text-gray-500 hover:text-violet-600";
 
+    const [form, setForm] = useState({
+        senhaAntiga: '',
+        novaSenha: '',
+        confirmarSenha: ''
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const dados = {senha_antiga: senhaAntiga, senha_nova: senhaNova, confirmar_senha: confirmarSenha};
-        SalvarSenha(dados);
-        Fechado();
-    }
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async () => {
+        if (form.novaSenha !== form.confirmarSenha) {
+            alert("A nova senha e a confirmação não coincidem!");
+            return;
+        }
+        if (form.novaSenha.length < 6) {
+            alert("A nova senha deve ter no mínimo 6 caracteres.");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            await api.patch(`/usuario/${usuarioLogado.id}/change-password`, {
+                senhaAntiga: form.senhaAntiga,
+                novaSenha: form.novaSenha
+            });
+
+            alert("Senha alterada com sucesso!");
+            Fechado();
+
+        } catch (error) {
+            alert(error.response?.data?.message || "Erro ao alterar senha. Verifique sua senha antiga.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if(!Aberto) return null;
 
@@ -32,17 +67,17 @@ export default function ModalAlterarSenha ({ Aberto, Fechado, AbrirModalEditarPe
 
                 <Image src="/images/key.svg" alt="X" width={180} height={180}/>
 
-                <div className="rounded-full mt-8 bg-white z-0 flex px-7">
-                    <input type="text" className="placeholder-gray-500 text-[20px] h-[50px] sm:w-[320px] w-[200px] bg-transparent" placeholder="Senha Antiga"/>
+                <div className="rounded-full mt-8 bg-white z-0 flex px-7 flex-col gap-4">
+                    <PasswordField type="password" name="senhaAntiga" value={form.senhaAntiga} onChange={handleChange} className="placeholder-gray-500 text-[20px] sm:w-[320px] w-[200px] bg-transparent transition right h-[50px] flex pl-4" placeholder="Senha Antiga"/>
                 </div>
                 <div className="rounded-full mt-5 bg-white z-0 flex px-7">
-                    <input type="text" className="placeholder-gray-500 text-[20px] h-[50px] sm:w-[320px] w-[200px] bg-transparent" placeholder="Nova Senha"/>
+                    <PasswordField type="password" name="novaSenha" value={form.novaSenha} onChange={handleChange} className="placeholder-gray-500 text-[20px] sm:w-[320px] w-[200px] bg-transparent transition right h-[50px] flex pl-4"  placeholder="Nova Senha"/>
                 </div>
                 <div className="rounded-full mt-5 bg-white z-0 flex px-7">
-                    <input type="text" className="placeholder-gray-500 text-[20px] h-[50px] sm:w-[320px] w-[200px] bg-transparent" placeholder="Confirmar Senha"/>
+                    <PasswordField type="password" name="confirmarSenha" value={form.confirmarSenha} onChange={handleChange} className="placeholder-gray-500 text-[20px] sm:w-[320px] w-[200px] bg-transparent transition right h-[50px] flex pl-4"  placeholder="Confirmar Senha"/>
                 </div>
 
-                <button type="button" className="bg-violet-600 cursor-pointer hover:opacity-90 transition text-yellow-50 mt-20 mb-15 text-lg h-[50px] w-[250px] flex justify-center items-center flex-none sm:w-[373px] rounded-full font-light" onClick={handleSubmit}>SALVAR</button>
+                <button type="button" className="bg-violet-600 cursor-pointer hover:opacity-90 transition text-yellow-50 mt-20 mb-15 text-lg h-[50px] w-[250px] flex justify-center items-center flex-none sm:w-[373px] rounded-full font-light" onClick={handleSubmit} disabled={loading}>{loading ? "SALVANDO..." : "SALVAR"}</button>
             </div>
         </div>
     );

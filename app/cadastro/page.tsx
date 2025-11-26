@@ -137,7 +137,7 @@ export default function SignupPage() {
             
             <p className="text-center text-white mt-6 text-sm">
               Já possui uma conta?{' '}
-              <a href="#" className="text-[#6C5CE7] hover:text-[#5B4CD6] font-semibold">
+              <a href="/login" className="text-[#6C5CE7] hover:text-[#5B4CD6] font-semibold">
                 Login
               </a>
             </p>
