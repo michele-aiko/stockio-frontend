@@ -23,10 +23,10 @@ export default function PaginaDePerfil() {
   const [meuPerfil, setMeuPerfil] = useState(false);
 
   const { usuarioLogado, logout } = useContext(ContextoAutentic);
-  const link = usuarioLogado?.username ? (`/perfil/${usuarioLogado.username}`) : ("/login");
 
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
   const [modalSenhaAberto, setModalSenhaAberto] = useState(false);
+
 
   useEffect(() => {
     if (!usernameProfile) return;
@@ -37,7 +37,7 @@ export default function PaginaDePerfil() {
 
     api.get(`/usuario/u/${usernameProfile}`)
       .then(response => {
-        setUsuario(response.data); // Apenas salva os dados da página
+        setUsuario(response.data);
       })
       .catch(error => {
         setUsuario(null);
@@ -126,8 +126,8 @@ export default function PaginaDePerfil() {
 
         <div className="flex flex-col lg:flex-row justify-between lg:items-start">
           
-          {usuario.foto_perfil_url ? (<img src={usuario.foto_perfil_url} alt={`Foto de perfil de ${usuario.nome}`} className="w-[230px] h-[230px] transition mx-auto lg:ml-[65px] bg-gray-200 rounded-full mt-[-150px] shrink-0"></img>) :
-          (<div className="w-[230px] h-[230px] cursor-pointer hover:opacity-90 transition mx-auto lg:ml-[65px] bg-gray-200 rounded-full mt-[-150px] border-yellow-50 shrink-0"></div>)}
+          {usuario.foto_perfil_url ? (<img src={usuario.foto_perfil_url} alt={`Foto de perfil de ${usuario.nome}`} className="w-[230px] h-[230px] object-cover transition mx-auto lg:ml-[65px] bg-gray-200 rounded-full mt-[-150px] shrink-0"></img>) :
+          (<div className="w-[230px] h-[230px] cursor-pointer hover:opacity-90 transition mx-auto lg:ml-[65px] bg-gray-200 rounded-full mt-[-150px] shrink-0"></div>)}
 
           <div className="mt-8 self-center transition lg:self-auto" onClick={() => setModalEditarAberto(true)}>
             {meuPerfil && (
@@ -180,18 +180,16 @@ export default function PaginaDePerfil() {
 
         <div className="mt-4 w-full overflow-x-auto overflow-y-hidden">
           <div className="flex flex-nowrap gap-6">
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
-            <CardProduto />
+            {usuario.Lojas?.[0]?.Produtos?.length > 0 ? ( 
+                usuario.Lojas[0].Produtos.map((produto) => (
+                  <CardProduto 
+                    key={produto.id} 
+                    dados={produto}
+                  />
+                ))
+              ) : (
+                <p className="text-gray-500 text-[30px] ml-6">Este usuário ainda não tem produtos.</p>
+              )}
           </div>
         </div>
       </div>
