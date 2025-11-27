@@ -1,24 +1,51 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import EstrelasAvaliacao from "./estrelas";
+import api from "./services/api"
 
-export default function ModalEditarAvaliacao({ Aberto, Fechado, Salvar, Deletar, nomeDaLoja }) {
+export default function ModalEditarAvaliacao({ Aberto, Fechado, nomeDaLoja, avaliacaoId }) {
+    useEffect(()=>{
+            fetchAvaliacao();
+        },[]);
+
+    const updateAvaliacao = async(id) =>{
+        try{
+            const res = await api.put (`/avaliacoesProduto/${id}`, {
+                usuarioId: newUsuarioId,
+                produtoId: newProdutoId,
+                nota: newNota,
+                comentario: newComentario
+            })    
+        setAvaliacao(avaliacoesProduto.map((t) => (t.id === id ? res.data : t)));
+        }catch (error){
+            console.error("Erro ao editar avaliação", error);
+        }}
+
+        const deleteAvaliacao = async (id) => {
+            try{
+                await api.delete(`/avaliacoesProduto/${id}`);
+            }catch (error) {
+                console.error("Erro ao deletar avaliação", error);
+            }
+        };
+
+        
 
     const [avaliacao, setAvaliacao] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const dados = {avaliacao: avaliacao};
-        Salvar(dados);
+        updateAvaliacao(avaliacaoId,dados);
         Fechado();
     }
 
     const handleDelete = (e) => {
         e.preventDefault();
         
-        if(window.confirm("Tem certeza que quer deletar todos os dados da loja?")){
-            Deletar();
+        if(window.confirm("Tem certeza que quer deletar essa avaliação?")){
+            deleteAvaliacao(avaliacaoId);
             Fechado();
         }
     }
