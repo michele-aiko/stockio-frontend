@@ -23,7 +23,7 @@ export default function Login() {
           <Image 
             width={350}
             height={350}
-            src={"/images/stockles.png"}
+            src={"/images/teste.png"}
             alt={"Stockles, mascote da empreasa"}></Image>
         </div>
       </div>
