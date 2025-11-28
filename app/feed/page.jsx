@@ -27,7 +27,7 @@ const StockIOHomepage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* header com o logo em svg (aprendi que é melhor em png mesmo) */}
+      {/* header */}
       <header className="flex items-center justify-between px-6 py-4 bg-black">
         <div className="flex items-center gap-2">
           <svg width="140" height="28" viewBox="0 0 221 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@ const StockIOHomepage = () => {
         </div>
       </header>
 
-      {/* sessão principal */}
+      {/* a sessão principal */}
       <section className="relative bg-black px-6 py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="z-10 max-w-xl">
@@ -88,28 +88,15 @@ const StockIOHomepage = () => {
             </h2>
           </div>
           <div className="relative hidden md:block">
-            {/* png da bonequinha */}
             <img 
               src="/personagem.png" 
               alt="Personagem Stock.io" 
               className="h-80 w-auto object-contain"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                console.log('Imagem não encontrada. Verifique se o arquivo está em public/personagem.png');
-              }}
             />
-            Deploy Now
           </div>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/8 px-5 transition-colors hover:border-transparent hover:bg-black/4 dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
         </div>
       </section>
+
 
       <main className="bg-white text-black rounded-t-3xl">
         {/* barra de pesquisa */}
@@ -128,7 +115,7 @@ const StockIOHomepage = () => {
           </div>
         </div>
 
-        {/* categorias */}
+        {/* categoria */}
         <section className="px-6 py-8">
           <h3 className="text-2xl font-bold mb-6">Categoria</h3>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
@@ -144,7 +131,7 @@ const StockIOHomepage = () => {
           </div>
         </section>
 
-        {/* produtos */}
+        {/* produtos do site */}
         <section className="px-6 py-8">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">

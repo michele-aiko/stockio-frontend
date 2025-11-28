@@ -1,7 +1,6 @@
 "use client"
 import { SlArrowLeft } from "react-icons/sl";
 import Navbar from '../components/navbar';
-import Image from 'next/image';
 import {Estrelas} from '../components/estrelas_estaticas'
 import HeaderAvaliacao from '../components/header_avaliacao'
 import Comentario from '../components/comentario'
@@ -9,7 +8,7 @@ import Comentario from '../components/comentario'
 
 export default function avaliacoesComentarios(){
     return(
-        <div className="h-full h-full">
+        <div className="h-full">
             <Navbar></Navbar>
 
             <div className="bg-black h-2/5 p-8">

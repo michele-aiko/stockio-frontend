@@ -25,7 +25,7 @@ export default function ModalEditarComentario({ Aberto, Fechado, Avaliar }) {
                 </button>
 
                 <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-[250px] sm:w-[850px] bg-white pt-4 px-6 resize-none" placeholder="Comentário"></textarea>
-                <button type="button" className="bg-violet-600 text-yellow-50 mt-10 text-md h-[35px] w-[250px] cursor-pointer hover:opacity-90 transition flex justify-center items-center flex-none sm:w-[500px] rounded-full font-thin" onClick={handleSubmit}>AVALIAR</button>
+                <button type="button" className="bg-violet-600 text-yellow-50 mt-10 text-md h-[35px] w-[250px] cursor-pointer hover:opacity-90 transition flex justify-center items-center flex-none sm:w-[500px] rounded-full font-normal" onClick={handleSubmit}>AVALIAR</button>
             </div>
         </div>
     );
