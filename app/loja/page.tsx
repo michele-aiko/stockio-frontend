@@ -13,11 +13,11 @@ export default function loja(){
             <div className=" h-1/2 items-center justify-center">
                 <div className="relative bg-[url('/images/teste.png')] bg-cover bg-center h-[300px]">
                     <div className='absolute top-4 right-8 z-50 flex flex-col gap-2'>
-                        <button className="bg-purple-600 text-white p-3 rounded-full shadow-lg">
+                        <button className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700" type="button">
                             <LuPencil size={18} />
                         </button>
 
-                        <button className="bg-purple-600 text-white p-3 rounded-full">
+                        <button className="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700" type='button'>
                             <FaPlus size={18} />
                         </button>
                         </div>
