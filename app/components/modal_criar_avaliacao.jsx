@@ -1,28 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EstrelasAvaliacao from "./estrelas";
-import api from "./services/api"
+
 
 export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoja }) {
 
-    useEffect(()=>{
-        fetchAvaliacoes();
-    },[]);
-    //const [avaliacao, setAvaliacao] = useState("");
-
-    const createAvaliacoes = async() =>{
-        try{
-            const res = await api.post ("/avaliacoes-produto", {
-                usuarioId: newUsuarioId,
-                produtoId: newProdutoId,
-                nota: newNota,
-                comentario: newComentario
-            })
-        setAvaliacoes([...tasks, res.data])
-    }catch (error){
-        console.error("Erro ao criar avaliação", error);
-    }}
+    const [avaliacao, setAvaliacao] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,4 +39,6 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
                 <button type="button" className="bg-violet-600 text-white flex justify-center items-center flex-none text-lg mt-15 w-[300px] h-[35px] sm:w-[700px] rounded-full font-light" onClick={handleSubmit}>Avaliar</button>
             </div>
         </div>
+        
     );
+}

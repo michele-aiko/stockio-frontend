@@ -1,23 +1,41 @@
+"use client"
+import { useState } from 'react';
 import Image from 'next/image';
+
 import Navbar from '../components/navbar';
+import ModalCriarAvaliacao from '../components/modal_criar_avaliacao';
+import ModalEditarAvaliacao from '../components/modal_editar_avaliacao';
+
 import { Estrelas } from '../components/estrelas_estaticas';
 import { LuPencil } from "react-icons/lu";
 import { FaPlus } from "react-icons/fa6";
 
 
 export default function loja(){
+
+    const [modalEditarAberto, setModalEditarAberto] = useState(false);
+    const [modalAvaliacaoAberto, setModalAvaliacaoAberto] = useState(false);
+
     return(
+        
         <div className="h-full h-full bg-black">
             <Navbar></Navbar>
 
             <div className=" h-1/2 items-center justify-center">
                 <div className="relative bg-[url('/images/teste.png')] bg-cover bg-center h-[300px]">
                     <div className='absolute top-4 right-8 z-50 flex flex-col gap-2'>
-                        <button className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700" type="button">
+                        <button 
+                        onClick={()=> setModalAvaliacaoAberto(true)}
+                        className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700" 
+                        type="button"
+                        >
                             <LuPencil size={18} />
                         </button>
 
-                        <button className="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700" type='button'>
+                        <button
+                        onClick={()=> setModalEditarAberto(true)} 
+                        className="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700" 
+                        type='button'>
                             <FaPlus size={18} />
                         </button>
                         </div>
@@ -60,10 +78,38 @@ export default function loja(){
                 </div>
                 <p className="text-xl text-black font-thin ml-16">Texto de avaliação. Aqui vai aparecer as informações que saem do back</p>
                 </div>
-                
-                
+                    
             </div>
-        </div>
+            {modalAvaliacaoAberto && (
+        <ModalCriarAvaliacao
+            Aberto={modalAvaliacaoAberto}
+            Fechado={() => setModalAvaliacaoAberto(false)}
+            nomeDaLoja="Minha loja"
+            Salvar={(dados:any) => {
+                console.log("Avaliação enviada:", dados);
+                setModalAvaliacaoAberto(false);
+            }}/>)
+        
+        }
+        {modalEditarAberto && (
+        <ModalEditarAvaliacao
+            Aberto={modalEditarAberto}
+            Fechado={() => setModalEditarAberto(false)}
+            Salvar={(dados:any) => {
+                console.log("Avaliação enviada:", dados);
+                setModalAvaliacaoAberto(false);
+            }}
+            Deletar={() => {
+                console.log("Deletando informações");
+                setModalEditarAberto(false);
+                }}
+            nomeDaLoja="Minha loja"
+            idAvaliacao={2}
 
-    );
+/>)
+        
+        }
+        </div>
+        );
+        
 }

@@ -1,51 +1,24 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import EstrelasAvaliacao from "./estrelas";
-import api from "./services/api"
 
-export default function ModalEditarAvaliacao({ Aberto, Fechado, nomeDaLoja, avaliacaoId }) {
-    useEffect(()=>{
-            fetchAvaliacao();
-        },[]);
-
-    const updateAvaliacao = async(id) =>{
-        try{
-            const res = await api.put (`/avaliacoesProduto/${id}`, {
-                usuarioId: newUsuarioId,
-                produtoId: newProdutoId,
-                nota: newNota,
-                comentario: newComentario
-            })    
-        setAvaliacao(avaliacoesProduto.map((t) => (t.id === id ? res.data : t)));
-        }catch (error){
-            console.error("Erro ao editar avaliação", error);
-        }}
-
-        const deleteAvaliacao = async (id) => {
-            try{
-                await api.delete(`/avaliacoesProduto/${id}`);
-            }catch (error) {
-                console.error("Erro ao deletar avaliação", error);
-            }
-        };
-
-        
+export default function ModalEditarAvaliacao({ Aberto, Fechado, Salvar, Deletar, nomeDaLoja, idAvaliacao }) {
 
     const [avaliacao, setAvaliacao] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const dados = {avaliacao: avaliacao};
-        updateAvaliacao(avaliacaoId,dados);
+        Salvar(dados);
         Fechado();
     }
 
     const handleDelete = (e) => {
         e.preventDefault();
         
-        if(window.confirm("Tem certeza que quer deletar essa avaliação?")){
-            deleteAvaliacao(avaliacaoId);
+        if(window.confirm("Tem certeza que quer deletar a sua avaliação?")){
+            Deletar();
             Fechado();
         }
     }
@@ -61,8 +34,8 @@ export default function ModalEditarAvaliacao({ Aberto, Fechado, nomeDaLoja, aval
                         <Image src="/images/X-2.svg" alt="X" width={30} height={30}/>
                     </button>
                     <div className="text-[39px] mt-9 sm:mt-4">
-                        <span className="font-thin">Você está avaliando </span>
-                        <span className="font-normal">{nomeDaLoja}</span>
+                        <span className="font-thin text-black">Você está avaliando </span>
+                        <span className="font-normal text-black">{nomeDaLoja}</span>
                     </div>
                 </div>
 
