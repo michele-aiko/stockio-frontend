@@ -2,16 +2,20 @@
 import Image from "next/image";
 import { useState } from "react";
 import EstrelasAvaliacao from "./estrelas";
+import Comentario from "./comentario";
 
 
 export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoja }) {
 
     const [avaliacao, setAvaliacao] = useState("");
+    const [nota, setNota] = useState(0);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dados = {avaliacao: avaliacao};
-        Salvar(dados);
+        const dados = {loja: nomeDaLoja,
+            nota: nota,
+            comentario: avaliacaoTexto};
+        Salvar(dados); //Envia esses novos dados 
         Fechado();
     }
 
@@ -32,9 +36,13 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
                     </div>
                 </div>
 
-                <EstrelasAvaliacao />
+                <EstrelasAvaliacao value = {nota} onChange={(v)=> setNota(v)}/>
 
-                <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0 text-gray-400" placeholder="Avaliação da loja"></textarea>
+                <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0 text-gray-400" 
+                placeholder="Avaliação da loja"
+                value = {avaliacaoTexto}
+                onChange = {(e)=> setAvaliacao(e.target.value)}
+                />
 
                 <button type="button" className="bg-violet-600 text-white flex justify-center items-center flex-none text-lg mt-15 w-[300px] h-[35px] sm:w-[700px] rounded-full font-light" onClick={handleSubmit}>Avaliar</button>
             </div>
