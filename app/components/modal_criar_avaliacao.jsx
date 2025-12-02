@@ -12,9 +12,11 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dados = {loja: nomeDaLoja,
+        const dados = {
+            usuarioId: 1,
+            lojaId: 2,
             nota: nota,
-            comentario: avaliacaoTexto};
+            comentario: avaliacao};
         Salvar(dados); //Envia esses novos dados 
         Fechado();
     }
@@ -40,7 +42,7 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
 
                 <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0 text-gray-400" 
                 placeholder="Avaliação da loja"
-                value = {avaliacaoTexto}
+                value = {avaliacao}
                 onChange = {(e)=> setAvaliacao(e.target.value)}
                 />
 
