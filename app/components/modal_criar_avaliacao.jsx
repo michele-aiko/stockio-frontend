@@ -14,7 +14,7 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
         e.preventDefault();
         const dados = {
             usuarioId: 1,
-            lojaId: 2,
+            lojaId: 1,
             nota: nota,
             comentario: avaliacao};
         Salvar(dados); //Envia esses novos dados 

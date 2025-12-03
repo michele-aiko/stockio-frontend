@@ -9,7 +9,6 @@ function EstrelasAvaliacao({onChange}) {
 
     //Envia a informação da nota para o pai. Componente estrela estava sempre retornando nota 0
     function selecionar(valor) {
-        console.log("⭐ Cliquei na estrela:", valor); // DEBUG
     setAvaliacao(valor);
         if (onChange) onChange(valor);
 ;}

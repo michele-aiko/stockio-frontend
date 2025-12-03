@@ -26,12 +26,10 @@ export default function loja(){
     const [modalEditarAberto, setModalEditarAberto] = useState(false);
     const [modalAvaliacaoAberto, setModalAvaliacaoAberto] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [nota, setNota] = useState(0);
 
 
 
     async function salvarAvaliacao(dados: Avaliacao) {
-        console.log(dados)
         await api.post("/avaliacoes-loja", dados); 
         setModalAvaliacaoAberto(false); 
         }
@@ -98,14 +96,14 @@ export default function loja(){
                         className="bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700" 
                         type="button"
                         >
-                            <LuPencil size={18} />
+                            <FaPlus size={18} />
                         </button>
 
                         <button
                         onClick={()=> setModalEditarAberto(true)} 
                         className="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700" 
                         type='button'>
-                            <FaPlus size={18} />
+                            <LuPencil size={18} />
                         </button>
                         </div>
                     
@@ -120,10 +118,6 @@ export default function loja(){
                 <div className='flex flex-col items-center'>
                     <p className='text-4xl pb-4'>Reviews e Comentários</p>
                     <p className='text-4xl pb-4'>4.75</p>
-                    <button type = 'button' className='bg-purple-700 rounded-full text-white p-2 px-10'>
-                    Adicionar Review
-                    </button>
-
                 </div>
                 
 
