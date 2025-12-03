@@ -38,7 +38,7 @@ export default function ModalCriarAvaliacao({ Aberto, Fechado, Salvar, nomeDaLoj
                     </div>
                 </div>
 
-                <EstrelasAvaliacao value = {nota} onChange={(v)=> setNota(v)}/>
+                <EstrelasAvaliacao value = {nota} onChange={setNota}/>
 
                 <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0 text-gray-400" 
                 placeholder="Avaliação da loja"

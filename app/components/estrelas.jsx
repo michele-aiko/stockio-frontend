@@ -2,9 +2,17 @@
 import { useState } from "react";
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
-function EstrelasAvaliacao() {
+
+function EstrelasAvaliacao({onChange}) {
     const [avaliacao, setAvaliacao] = useState(0);
     const [hover, setHover] = useState(0);
+
+    //Envia a informação da nota para o pai. Componente estrela estava sempre retornando nota 0
+    function selecionar(valor) {
+        console.log("⭐ Cliquei na estrela:", valor); // DEBUG
+    setAvaliacao(valor);
+        if (onChange) onChange(valor);
+;}
     return (
 
         <div className="flex flex-row">
@@ -12,7 +20,7 @@ function EstrelasAvaliacao() {
             
             <div 
                 key={valorEstrela} 
-                onClick={() => setAvaliacao(valorEstrela)}
+                onClick={() => selecionar(valorEstrela)}
                 onMouseEnter={() => setHover(valorEstrela)}
                 onMouseLeave={() => setHover(0)}
                 className="cursor-pointer">

@@ -26,15 +26,19 @@ export default function loja(){
     const [modalEditarAberto, setModalEditarAberto] = useState(false);
     const [modalAvaliacaoAberto, setModalAvaliacaoAberto] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [nota, setNota] = useState(0);
+
 
 
     async function salvarAvaliacao(dados: Avaliacao) {
+        console.log(dados)
         await api.post("/avaliacoes-loja", dados); 
         setModalAvaliacaoAberto(false); 
         }
 
     return(
         
+        //Navbar retirada da página inicial, troquei para essa para a página saber quando o usuário está logado ou não
         <div className="h-full h-full bg-black">
             <header className="flex items-center justify-between px-6 py-4 bg-black">
         <div className="flex items-center gap-2">
