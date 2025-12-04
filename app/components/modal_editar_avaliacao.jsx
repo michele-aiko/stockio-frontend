@@ -17,11 +17,11 @@ export default function ModalEditarAvaliacao({ Aberto, Fechado, Salvar, Deletar,
         Fechado();
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
         
         if(window.confirm("Tem certeza que quer deletar a sua avaliação?")){
-            Deletar(idAvaliacao);
+            await Deletar();
             Fechado();
         }
     }

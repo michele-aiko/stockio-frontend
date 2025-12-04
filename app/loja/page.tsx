@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Navbar from '../components/navbar';
 import ModalCriarAvaliacao from '../components/modal_criar_avaliacao';
 import ModalEditarAvaliacao from '../components/modal_editar_avaliacao';
-const idAvaliacao = 3;
+const idAvaliacao = 4;
 type Avaliacao = {
   usuarioId: number;
   lojaId: number;
@@ -174,10 +174,9 @@ export default function loja(){
             Aberto={modalEditarAberto}
             Fechado={() => setModalEditarAberto(false)}
             Salvar={(dados: AvaliacaoEditada)=>editarAvaliacao(idAvaliacao, dados)}
-            Deletar={() => {
-                console.log("Deletando informações");
-                setModalEditarAberto(false);
-                }}
+            Deletar={()=>{deletarAvaliacao(idAvaliacao);
+                setModalEditarAberto(false);}
+                }
             nomeDaLoja="Minha loja"
             idAvaliacao={2}
 
