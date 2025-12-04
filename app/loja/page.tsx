@@ -5,12 +5,19 @@ import Image from 'next/image';
 import Navbar from '../components/navbar';
 import ModalCriarAvaliacao from '../components/modal_criar_avaliacao';
 import ModalEditarAvaliacao from '../components/modal_editar_avaliacao';
+const idAvaliacao = 3;
 type Avaliacao = {
-    usuarioId: number;
+  usuarioId: number;
   lojaId: number;
   nota: number;
   comentario: string;
-}; //dados estava chegando sem tipo definido
+}; 
+
+type AvaliacaoEditada = {
+  //avaliacaoLojaId: number;
+  nota: number;
+  comentario: string;
+}//dados estava chegando sem tipo definido
 
 import { Estrelas } from '../components/estrelas_estaticas';
 import { LuPencil } from "react-icons/lu";
@@ -34,6 +41,16 @@ export default function loja(){
         setModalAvaliacaoAberto(false); 
         }
 
+    async function editarAvaliacao(idAvaliacao:number, dados: AvaliacaoEditada) {
+        console.log("ID:", idAvaliacao);
+        console.log("DADOS:", dados);
+        await api.patch(`/avaliacoes-loja/${idAvaliacao}`, dados); 
+        setModalEditarAberto(false); 
+        }
+
+    async function deletarAvaliacao(id: number) {
+    await api.delete(`/avaliacoes-loja/${id}`);
+    }
     return(
         
         //Navbar retirada da página inicial, troquei para essa para a página saber quando o usuário está logado ou não
@@ -100,7 +117,7 @@ export default function loja(){
                         </button>
 
                         <button
-                        onClick={()=> setModalEditarAberto(true)} 
+                        onClick={()=>setModalEditarAberto(true)}
                         className="bg-purple-600 text-white p-3 rounded-full hover:bg-purple-700" 
                         type='button'>
                             <LuPencil size={18} />
@@ -156,10 +173,7 @@ export default function loja(){
         <ModalEditarAvaliacao
             Aberto={modalEditarAberto}
             Fechado={() => setModalEditarAberto(false)}
-            Salvar={(dados:any) => {
-                console.log("Avaliação enviada:", dados);
-                setModalAvaliacaoAberto(false);
-            }}
+            Salvar={(dados: AvaliacaoEditada)=>editarAvaliacao(idAvaliacao, dados)}
             Deletar={() => {
                 console.log("Deletando informações");
                 setModalEditarAberto(false);
@@ -168,7 +182,6 @@ export default function loja(){
             idAvaliacao={2}
 
 />)
-        
         }
         </div>
         );
