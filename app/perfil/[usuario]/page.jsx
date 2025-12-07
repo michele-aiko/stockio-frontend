@@ -93,7 +93,9 @@ export default function PaginaDePerfil() {
           {usuarioLogado ? (
             <>
               <Image src="/images/bag.svg" alt="Sacola" width={30} height={30} className="cursor-pointer hover:opacity-80"/>
-              <Image src="/images/lojinha.svg" alt="Loja" width={30} height={30} className="cursor-pointer hover:opacity-80"/>
+              <Link href="/loja" className="w-fit block">
+                <Image src="/images/lojinha.svg" alt="Loja" width={30} height={30} className="cursor-pointer hover:opacity-80"/>
+              </Link>
               <NavbarLog />
               <Image src="/images/exit.svg" alt="Sair" width={30} height={30} className="cursor-pointer hover:opacity-90 transition" onClick={() => {
                 if(window.confirm("Deseja realmente sair?")) 
@@ -161,7 +163,6 @@ export default function PaginaDePerfil() {
             <div className="text-xl lg:text-[29.15px] text-gray-500">@</div>
               <input type="text" className="placeholder-gray-500 text-xl lg:text-[29.15px]" placeholder="IG"/>
           </div>*/}
-
           <div className="flex items-center gap-2">
             <Image 
             className="dark:invert" 
