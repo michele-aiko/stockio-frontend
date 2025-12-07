@@ -1,11 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingCart, FileText, Search } from 'lucide-react';
+import Link from 'next/link'; // Já está importado, perfeito!
+import { getProducts } from '../src/services/products';
 
 const StockIOHomepage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [products, setProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProducts();
+      if (Array.isArray(data)) {
+        setProducts(data);
+      }
+    };
+    fetchData();
+  }, []);
 
   const categories = [
     { icon: '🛒', label: 'Mercado' },
@@ -18,16 +31,8 @@ const StockIOHomepage = () => {
     { icon: '🏠', label: 'Casa' }
   ];
 
-  const products = [
-    { name: 'Biscoito Recheado', price: 'R$ 3,99', discount: '-5%', image: '🍪', color: 'bg-purple-600' },
-    { name: 'Leite Integral', price: 'R$ 4,50', discount: '-3%', image: '🥛', color: 'bg-blue-500' },
-    { name: 'Pão Francês', price: 'R$ 0,50', discount: 'NOVO', image: '🥖', color: 'bg-orange-500' },
-    { name: 'Banana Prata', price: 'R$ 5,99/kg', discount: 'FRESCO', image: '🍌', color: 'bg-green-600' }
-  ];
-
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* header com o logo em svg (aprendi que é melhor em png mesmo) */}
       <header className="flex items-center justify-between px-6 py-4 bg-black">
         <div className="flex items-center gap-2">
           <svg width="140" height="28" viewBox="0 0 221 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +83,6 @@ const StockIOHomepage = () => {
         </div>
       </header>
 
-      {/* sessão principal */}
       <section className="relative bg-black px-6 py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="z-10 max-w-xl">
@@ -88,14 +92,12 @@ const StockIOHomepage = () => {
             </h2>
           </div>
           <div className="relative hidden md:block">
-            {/* png da bonequinha */}
             <img 
               src="/personagem.png" 
               alt="Personagem Stock.io" 
               className="h-80 w-auto object-contain"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
-                console.log('Imagem não encontrada. Verifique se o arquivo está em public/personagem.png');
               }}
             />
           </div>
@@ -103,7 +105,6 @@ const StockIOHomepage = () => {
       </section>
 
       <main className="bg-white text-black rounded-t-3xl">
-        {/* barra de pesquisa */}
         <div className="px-6 py-8">
           <div className="max-w-3xl mx-auto relative">
             <input
@@ -119,7 +120,6 @@ const StockIOHomepage = () => {
           </div>
         </div>
 
-        {/* categorias */}
         <section className="px-6 py-8">
           <h3 className="text-2xl font-bold mb-6">Categoria</h3>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
@@ -135,7 +135,6 @@ const StockIOHomepage = () => {
           </div>
         </section>
 
-        {/* produtos */}
         <section className="px-6 py-8">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">
@@ -147,21 +146,30 @@ const StockIOHomepage = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {products.map((product, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
-              >
-                <div className={`${product.color} h-40 flex items-center justify-center relative`}>
-                  <span className="text-6xl">{product.image}</span>
-                  <div className="absolute top-3 right-3 bg-white text-purple-900 px-3 py-1 rounded-full text-xs font-bold">
-                    {product.discount}
+              <Link key={product.id || index} href={`/produtos/${product.id}`}>
+                <div
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+                >
+                  <div className={`${product.color || 'bg-purple-600'} h-40 flex items-center justify-center relative`}>
+                    {product.image && (product.image.startsWith('/') || product.image.startsWith('http')) ? (
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="h-32 w-32 object-contain"
+                      />
+                    ) : (
+                      <span className="text-6xl">{product.image || '📦'}</span>
+                    )}
+                    <div className="absolute top-3 right-3 bg-white text-purple-900 px-3 py-1 rounded-full text-xs font-bold">
+                      {product.discount || 'OFERTA'}
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h4 className="font-semibold text-gray-800 mb-2">{product.name}</h4>
+                    <p className="text-xl font-bold text-purple-600">{product.price}</p>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">{product.name}</h4>
-                  <p className="text-xl font-bold text-purple-600">{product.price}</p>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
