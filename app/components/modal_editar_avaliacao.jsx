@@ -6,19 +6,22 @@ import EstrelasAvaliacao from "./estrelas";
 export default function ModalEditarAvaliacao({ Aberto, Fechado, Salvar, Deletar, nomeDaLoja, idAvaliacao }) {
 
     const [avaliacao, setAvaliacao] = useState("");
+    const [nota, setNota] = useState(0);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dados = {avaliacao: avaliacao};
+        const dados = {
+            nota: nota,
+            comentario: avaliacao};
         Salvar(dados);
         Fechado();
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
         
         if(window.confirm("Tem certeza que quer deletar a sua avaliação?")){
-            Deletar();
+            await Deletar();
             Fechado();
         }
     }
@@ -39,9 +42,10 @@ export default function ModalEditarAvaliacao({ Aberto, Fechado, Salvar, Deletar,
                     </div>
                 </div>
 
-                <EstrelasAvaliacao />
+                <EstrelasAvaliacao value = {nota} onChange={setNota}/>
 
-                <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0" placeholder="Avaliação da loja"></textarea>
+                <textarea className="placeholder-gray-500 mt-15 text-[20px] rounded-2xl
+                text-black h-60 sm:h-[500px] w-full sm:w-[750px] bg-white pt-4 px-6 resize-none shrink-0" placeholder="Avaliação da loja" value={avaliacao} onChange={(e)=> setAvaliacao(e.target.value)}></textarea>
 
                 <button type="button" className="bg-[#FF0000] text-white flex justify-center items-center flex-none text-lg mt-15 w-[300px] h-[35px] sm:w-[700px] rounded-full font-light" onClick={handleDelete}>DELETAR</button>
 

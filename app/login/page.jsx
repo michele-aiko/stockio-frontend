@@ -50,7 +50,7 @@ export default function Login() {
             className="w-full h-screen"
             width={350}
             height={350}
-            src={"/images/teste.png"}
+            src={"/images/stockles.png"}
             alt={"Stockles, mascote da empreasa"}></Image>
         </div>
       </div>

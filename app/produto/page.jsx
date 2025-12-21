@@ -44,12 +44,14 @@ export default function produto(){
                 <div className="text-gray-800 text-sm leading-relaxed">
                 texto de descrição topíssimo texto de descrição topíssimo texto de descrição topíssimo.
                 </div>
+            </div>
+
+            </div>
+            <div>
+                <p className='text-lg text-black'>Avaliações</p>
 
             </div>
 
-
-
-        </div>
         </div>
     )
 
