@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Navbar from '../components/navbar';
 import ModalCriarAvaliacao from '../components/modal_criar_avaliacao';
 import ModalEditarAvaliacao from '../components/modal_editar_avaliacao';
-const idAvaliacao = 4;
+const idAvaliacao = 10;
 type Avaliacao = {
   usuarioId: number;
   lojaId: number;
